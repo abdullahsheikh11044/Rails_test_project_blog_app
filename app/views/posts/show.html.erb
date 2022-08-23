@@ -16,6 +16,9 @@
     <%=render @post.comments%> 
 </div>
 <% if user_signed_in?%>
+  <% like = current_user.likes.find_by(post: @post)%>
+  <% if like.nil? %>
+  <%= button_to "Like", likes_path, params: { like: { post_id: @post.id}}, method: :post%>
   <div class="container">
     <div class="comment-form"> 
     <h3>Leave a comment</h3>
