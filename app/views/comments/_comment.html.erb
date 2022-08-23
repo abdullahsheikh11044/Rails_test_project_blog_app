@@ -1,0 +1,9 @@
+<div class="container">
+<p>
+<strong><%=comment.name%></strong>
+<%=comment.comment%>
+</p>
+</div>
+<% if current_user.present?  && current_user==@post.user%>
+<%= link_to 'Delete', [comment.post,comment], method: :delete, class:"btn btn-danger"%>
+<% end %>
