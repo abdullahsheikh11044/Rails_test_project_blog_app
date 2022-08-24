@@ -6,14 +6,12 @@
     </div>
     <br /> <br />
 
-    <div class="feild form-group">
-    <%= f.text_area :content, class:"form-control", placeholder:"Description" %>
-    
-
-    
-    </div>  
+    <div class="field">
+    <%= f.label :content %>
+    <%= f.rich_text_area :content %>
+  </div>
     <br /> <br />
-
+    
     <div class="actions">
     <%= f.submit class: 'btn btn-primary' %>
   </div>

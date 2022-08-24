@@ -1,9 +1,30 @@
-<div class="container">
+<div class="article">
 <p>
 <strong><%=comment.name%></strong>
 <%=comment.comment%>
+
+  <%= render partial: 'likes/button', locals:{likeable: comment}%>
+
+<div class="comment-form">
+<%= render partial: 'comments/form', locals: {post: comment.post, parent: comment}%>
+</div>
+<div class="sub-comment">
+<%= render comment.comments%>
 </p>
 </div>
-<% if current_user.present?  && current_user==@post.user%>
+
+<hr/>
+</div>
+
+<% if current_user.present?  && current_user==@post.user %>
 <%= link_to 'Delete', [comment.post,comment], method: :delete, class:"btn btn-danger"%>
 <% end %>
+
+<%# <script>
+document.querySelectorAll('.comment-form-display').forEach((el) => {
+    el.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        el.nextElementSibling.style = 'display: block;'
+    })
+})
+</script> %>

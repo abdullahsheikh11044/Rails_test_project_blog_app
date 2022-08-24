@@ -1,6 +1,9 @@
 
 <div class="container">
     <%= form_for([@post, @post.comments.build]) do |f| %>
+    <% if !parent.nil? %>
+    <input type="hidden" name="comment[parent_id]" value="<%= parent.id %>">
+    <% end %>
     <div class="feild form-group">
     <%= f.text_field :name,class:"form-control", placeholder:"Name" %>
     </div>
@@ -19,3 +22,17 @@
   </div>
     <% end %>
 </div>
+<!--
+<form action="<%= post_comments_path(post) %>" method="post">
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+  <% if !parent.nil? %>
+    <input type="hidden" name="comment[parent_id]" value="<%= parent.id %>">
+  <% end %>
+
+  <div>
+  <textarea name="comment[content]" rows="3" cols="20"></textarea>
+  </div>
+
+  <input type="submit" value="Submit">
+  </form>
+-->

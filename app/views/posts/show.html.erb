@@ -13,17 +13,15 @@
 </div>
 <div class="container">
     <h2 class="subtitle"><strong><%= @post.comments.count %></strong>Comments</h2>
-    <%=render @post.comments%> 
+    <%= render @post.comments.where(parent_id: nil).includes(:user).order(id: :desc)%>
 </div>
 <% if user_signed_in?%>
-  <% like = current_user.likes.find_by(post: @post)%>
-  <% if like.nil? %>
-  <%= button_to "Like", likes_path, params: { like: { post_id: @post.id}}, method: :post%>
-  <%end%>
+  <%= render partial: 'likes/button', locals:{likeable: @post}%>
   <div class="container">
     <div class="comment-form"> 
     <h3>Leave a comment</h3>
-    <%= render 'comments/form'%>
+    
+    <%= render partial: 'comments/form',locals: {post: @post, parent:nil}%>
     </div>
     </div>
 <% else %>

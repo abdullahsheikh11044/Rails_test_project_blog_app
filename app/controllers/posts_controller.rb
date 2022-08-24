@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
     def index
        # @posts=current_user.posts
-       @post = Post.all.order("created_at DESC")
+       @post = Post.all.order("created_at DESC").with_rich_text_content
     end
 
     def new
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
 private
 
 def post_params
-    params.require(:post).permit(:title, :content,:user_id).with_defaults(user_id: current_user.id)
+    params.require(:post).permit(:title, :content, :user_id).with_defaults(user_id: current_user.id)
 end
 
 end
