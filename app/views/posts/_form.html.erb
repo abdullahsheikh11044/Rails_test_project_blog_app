@@ -1,0 +1,19 @@
+
+<div class="section">
+    <%= form_for @post do |f| %>
+    <div class="feild form-group">
+    <%= f.text_field :title,class:"form-control", placeholder:"Title" %>
+    </div>
+    <br /> <br />
+
+    <div class="field">
+    <%= f.label :content %>
+    <%= f.rich_text_area :content %>
+  </div>
+    <br /> <br />
+    
+    <div class="actions">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+    <% end %>
+</div>
