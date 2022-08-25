@@ -11,7 +11,6 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-
     if @post.save
       redirect_to @post
     else
@@ -25,7 +24,6 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find_by(id: params[:id])
-
     if @post.update(post_params)
       redirect_to @post
     else
@@ -34,7 +32,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
+    @post = Post.find_by(id: params[:id])
   end
 
   def destroy

@@ -33,7 +33,7 @@ gem 'devise' # Use Redis adapter to run Action Cable in production
 gem 'pundit', '~> 2.2'
 gem 'rubocop-rails', require: false
 gem 'webpacker'
-# gem 'actiontext', github: 'kobaltz/actiontext', branch: 'archive', require: 'action_text'
+# gem 'actiontext', github: 'kobaltz/actiontext', branch: 'archive', require: 'action_text' will use after this PR
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
