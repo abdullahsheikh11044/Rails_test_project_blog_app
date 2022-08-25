@@ -14,6 +14,9 @@ def destroy
     @like = current_user.likes.find(params[:id])
     likeable = @like.likeable
     @like.destroy
+    if !@like.destroy
+        flash[:notice] = @like.errors.full_messages.to_sentence
+    end
     redirect_back(fallback_location: posts_url)
 end
 

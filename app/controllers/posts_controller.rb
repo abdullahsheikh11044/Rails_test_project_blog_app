@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
     def index
-       # @posts=current_user.posts
-       @post = Post.all.order("created_at DESC").with_rich_text_content
+       @post = Post.all.order("created_at DESC")
     end
 
     def new
@@ -40,7 +39,9 @@ class PostsController < ApplicationController
     def destroy
         @post = Post.find(params[:id])
         @post.destroy
-
+        if !@post.destroy
+            flash[:notice] = @post.errors.full_messages.to_sentence
+        end
         redirect_to posts_path
     end
 private
