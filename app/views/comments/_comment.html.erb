@@ -1,0 +1,22 @@
+<div class="article">
+<p>
+
+<strong><%=comment.comment%></strong>
+
+  <%= render partial: 'likes/button', locals:{likeable: comment}%>
+
+<div class="comment-form">
+<%= render partial: 'comments/form', locals: {post: comment.post, parent: comment}%>
+</div>
+<div class="sub-comment">
+<%= render comment.comments%>
+</p>
+</div>
+
+<hr/>
+</div>
+
+<% if current_user.present?  && current_user==@post.user %>
+<%= link_to 'Delete', [comment.post,comment], method: :delete, class:"btn btn-danger"%>
+<% end %>
+

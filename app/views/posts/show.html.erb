@@ -1,0 +1,33 @@
+<div class="conatiner">
+  <div class="card" style="width: 28rem;">
+    <div class="card-body">
+        <h5 class="card-title"><%= @post.title %></h5>
+        <p class="card-text"><%= @post.content %></p>
+      <% if current_user.present?  && current_user==@post.user%>
+        <%= link_to "Edit", edit_post_path(@post), class:"btn btn-primary"%>
+        <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure"}, class:"btn btn-danger"%>
+      <% end %>
+    </div>
+  <div>
+</div>
+
+<div class="container">
+    <h2 class="subtitle"><strong><%= @post.comments.count %></strong>Comments</h2>
+    <%= render @post.comments.where(parent_id: nil).includes(:user).order(id: :desc)%>
+</div>
+
+<% if user_signed_in?%>
+  <%= render partial: 'likes/button', locals:{likeable: @post}%>
+  <div class="container">
+      <div class="comment-form"> 
+        <h3>Leave a comment</h3>
+    
+        <%= render partial: 'comments/form',locals: {post: @post, parent:nil}%>
+      </div>
+  </div>
+
+<% else %>
+
+  <%= link_to "Login",new_user_session_path%>
+
+<%end%>
