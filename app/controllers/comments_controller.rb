@@ -9,9 +9,9 @@ class CommentsController < ApplicationController
     @post = Post.find_by(id: params[:post_id])
     @comment = @post.comments.new(params_comment)
     if @comment.save
-     redirect_to post_path(@post)
+      redirect_to post_path(@post)
     else
-     flash[:notice] = @comment.errors.full_messages.to_sentence
+      flash[:notice] = @comment.errors.full_messages.to_sentence
     end
   end
 

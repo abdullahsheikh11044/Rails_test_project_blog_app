@@ -1,9 +1,13 @@
+
 <div class="conatiner">
   <div class="card" style="width: 28rem;">
     <div class="card-body">
+         <h5 class="card-title">User id<%= @post.user.id %></h5>
+
+     <h5 class="card-title">Post id<%= @post.id %></h5>
         <h5 class="card-title"><%= @post.title %></h5>
         <p class="card-text"><%= @post.content %></p>
-      <% if current_user.present?  && current_user==@post.user%>
+      <% if current_user.present?  && (current_user.id == @post.user_id || current_user.admin?)%>
         <%= link_to "Edit", edit_post_path(@post), class:"btn btn-primary"%>
         <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure"}, class:"btn btn-danger"%>
       <% end %>
