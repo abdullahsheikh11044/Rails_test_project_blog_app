@@ -30,7 +30,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 gem 'devise' # Use Redis adapter to run Action Cable in production
-gem 'pundit', '~> 2.2'
+gem 'pundit', '~> 1.1'
 gem 'rubocop-rails', require: false
 gem 'webpacker'
 # gem 'actiontext', github: 'kobaltz/actiontext', branch: 'archive', require: 'action_text' will use after this PR

@@ -1,5 +1,6 @@
 
 <%@post.each do |post|%>
+<% if post.unpublish? && current_user.admin?%>
     <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">
@@ -12,4 +13,20 @@
         </div>
     </div>
 <br>
+<% elsif post.publish? && current_user.user?%>
+<div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">
+                <%= post.title%>
+                </h5>
+                <p class="card-text">
+                <%= post.content%>
+                </p><br>
+                <%= link_to 'Click', post, class:"btn btn-primary"%>
+        </div>
+    </div>
 <%end%>
+<%end%>
+
+
+

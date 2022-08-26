@@ -11,9 +11,15 @@
     <%= f.text_area :content %>
   </div>
     <br /> <br />
-    
+    <% if current_user.admin?%>
+    <div>    
+    <%= f.label :Post_Type %>    
+    <%= f.select :status, Post.statuses.keys.to_a %>  
+    </div>
+    <%end%>
     <div class="actions">
     <%= f.submit class: 'btn btn-primary' %>
   </div>
     <% end %>
 </div>
+
