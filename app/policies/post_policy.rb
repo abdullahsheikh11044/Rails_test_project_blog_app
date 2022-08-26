@@ -8,29 +8,37 @@ class PostPolicy < ApplicationPolicy
     end
   end
 
-  def index?; end
+  def index?
+    user_role
+  end
 
   def new?
-    @user.roles == 'user'
+    user_role
   end
 
   def show?
-    @user.roles == 'admin' || 'user'
+    user_role
   end
 
   def create?
-    @user.roles == 'admin' || 'user'
+    user_role
   end
 
   def update?
-    @user.roles == 'admin' || 'user'
+    user_role
   end
 
   def edit?
-    @user.roles == 'admin' || 'user'
+    user_role
   end
 
   def destroy?
-    @user.roles == 'admin' || 'user'
+    user_role
+  end
+
+  private
+
+  def user_role
+    @user.admin? || @user.user?
   end
 end
