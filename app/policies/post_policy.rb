@@ -9,36 +9,16 @@ class PostPolicy < ApplicationPolicy
   end
 
   def index?
-    user_role
+    is_user_or_admin?
   end
+  alias new? index?
+  alias show? index?
+  alias create? index?
+  alias update? index?
+  alias edit? index?
+  alias destroy? index?
 
-  def new?
-    user_role
-  end
-
-  def show?
-    user_role
-  end
-
-  def create?
-    user_role
-  end
-
-  def update?
-    user_role
-  end
-
-  def edit?
-    user_role
-  end
-
-  def destroy?
-    user_role
-  end
-
-  private
-
-  def user_role
-    @user.admin? || @user.user?
+  def is_user_or_admin?
+    @user.user? || @user.admin?
   end
 end
