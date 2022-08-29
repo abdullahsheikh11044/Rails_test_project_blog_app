@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_26_111834) do
+ActiveRecord::Schema.define(version: 2022_08_29_132311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,18 @@ ActiveRecord::Schema.define(version: 2022_08_26_111834) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "suggestions", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "post_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0
+    t.integer "parent_id"
+    t.index ["post_id"], name: "index_suggestions_on_post_id"
+    t.index ["user_id"], name: "index_suggestions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -106,4 +118,6 @@ ActiveRecord::Schema.define(version: 2022_08_26_111834) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "suggestions", "posts"
+  add_foreign_key "suggestions", "users"
 end

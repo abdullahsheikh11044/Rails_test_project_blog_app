@@ -1,0 +1,21 @@
+<div class="container">
+
+  <%= form_for([@post, @post.suggestions.build]) do |f| %>
+    <% if !parent.nil? %>
+      <input type="hidden" name="suggestion[parent_id]" value="<%= parent.id %>">
+    <% end %>
+
+    <div class="feild form-group">
+      <%= f.text_area :content, required: true, class:"form-control", placeholder:"Suggestion" %>
+    </div>  
+    <br /> <br />
+
+    <div class="actions">
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
+
+  <% end %>
+</div>
+
+
+

@@ -1,0 +1,5 @@
+<p>
+    <h1><strong>Suggestions</strong></h1>
+    <h2 class="subtitle"><strong><%= @post.suggestions.count %></strong>Suggestions</h2>
+    <%= render partial: 'suggestions/form', locals: {post: @post, parent:nil}%>
+</p>

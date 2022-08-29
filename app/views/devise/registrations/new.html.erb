@@ -9,7 +9,7 @@
   </div>
   <div class="field form-group">
     <br />
-    <%= f.text_field :roles.to_s, class:"form-control", placeholder:"Role", autofocus: true %>
+    <%= f.select :role, User.roles.keys %>   
   </div>
   
 
