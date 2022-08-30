@@ -29,7 +29,7 @@ class SuggestionsController < ApplicationController
   private
 
   def suggestion_params
-    params.require(:suggestion).permit(:content, :status, :parent_id,
-                                       :user_id).with_defaults(user_id: current_user.id)
+    params.require(:suggestion).permit(:content, :status, :parent_id, :user_id)
+                               .with_defaults(user_id: current_user.id)
   end
 end
