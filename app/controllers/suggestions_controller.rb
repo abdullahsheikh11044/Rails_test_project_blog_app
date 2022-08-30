@@ -3,7 +3,7 @@
 class SuggestionsController < ApplicationController
   def new
     @post = Post.find_by(id: params[:post_id])
-    @suggestion = Suggestion.find_by(id: params[:post_id])
+    @suggestion = @post.suggestions.new
   end
 
   def create
