@@ -1,6 +1,6 @@
 
 <div class="conatiner">
-  <div class="card" style="width: 38rem;">
+  <div class="card">
     <div class="card-body">
         <h4 class="card-title">Title: <%= @post.title %></h4>
         <p class="card-text"><%= @post.content %></p>
@@ -8,8 +8,6 @@
         <%= link_to "Edit", edit_post_path(@post), class:"btn btn-primary"%>
         <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure"}, class:"btn btn-danger"%>
         <%= link_to "Suggest", post_suggestions_path(@post), class:"btn btn-primary"%> 
-      
-
       <% end %>
     </div>
   <div>
@@ -34,13 +32,7 @@
   <div class="container">
     <h2 class="subtitle"><strong><%= @post.suggestions.count %></strong>Suggestions</h2>
     <%= render @post.suggestions.where(parent_id: nil).includes(:user).order(id: :desc)%>
-    
-</div>
-
-
-
+  </div>
 <% else %>
-
   <%= link_to "Login",new_user_session_path%>
-
 <%end%>

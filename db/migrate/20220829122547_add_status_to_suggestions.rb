@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddStatusToSuggestions < ActiveRecord::Migration[5.2]
   def change
     add_column :suggestions, :status, :integer, default: 0

@@ -1,7 +1,7 @@
 <div class="container">
 
   <%= form_for([@post, @post.suggestions.build]) do |f| %>
-    <% if !parent.nil? %>
+    <% if parent.present? %>
       <input type="hidden" name="suggestion[parent_id]" value="<%= parent.id %>">
     <% end %>
 
