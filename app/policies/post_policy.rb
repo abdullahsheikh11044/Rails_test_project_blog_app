@@ -9,7 +9,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def index?
-    is_user_or_admin?
+    user_or_admin?
   end
   alias new? index?
   alias show? index?
@@ -18,7 +18,7 @@ class PostPolicy < ApplicationPolicy
   alias edit? index?
   alias destroy? index?
 
-  def is_user_or_admin?
+  def user_or_admin?
     @user.user? || @user.admin?
   end
 end

@@ -15,7 +15,7 @@
 
 <div class="container">
     <h2 class="subtitle"><strong><%= @post.comments.count %></strong>Comments</h2>
-    <%= render @post.comments.where(parent_id: nil).includes(:user).order(id: :desc)%>
+    <%= render @post.comments.where(parent_id: nil).order(id: :desc)%>
     
 </div>
 
@@ -31,7 +31,7 @@
   <hr />
   <div class="container">
     <h2 class="subtitle"><strong><%= @post.suggestions.count %></strong>Suggestions</h2>
-    <%= render @post.suggestions.where(parent_id: nil).includes(:user).order(id: :desc)%>
+    <%= render @post.suggestions.where(parent_id: nil).order(id: :desc)%>
   </div>
 <% else %>
   <%= link_to "Login",new_user_session_path%>

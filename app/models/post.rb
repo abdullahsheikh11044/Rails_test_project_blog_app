@@ -7,5 +7,5 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
   enum status: { publish: 0, unpublish: 1 }
-  has_many :suggestions
+  has_many :suggestions, dependent: :destroy
 end
