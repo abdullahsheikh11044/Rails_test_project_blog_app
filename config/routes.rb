@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :posts do
-    resources :suggestions, only: %i[create destroy index]
+    resources :suggestions, only: %i[create destroy index new]
   end
   resources :likes, only: %i[create destroy]
   root to: 'users#index'
