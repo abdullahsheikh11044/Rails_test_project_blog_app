@@ -1,14 +1,14 @@
 
-<div class="section">
+<div class="container">
     <%= form_for @post do |f| %>
     <div class="feild form-group">
     <%= f.text_field :title,class:"form-control", placeholder:"Title" %>
     </div>
     <br /> <br />
 
-    <div class="field">
-    <%= f.label :content %>
-    <%= f.text_area :content %>
+    <div class="field form-group">
+      <%= f.text_area :content,class:"form-control", placeholder:"Description" %>
+
   </div>
     <br /> <br />
     <% if current_user.admin?%>

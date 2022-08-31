@@ -1,0 +1,21 @@
+<div class="article">
+<p>
+
+<strong><%= suggestion.content %></strong>
+<br/>
+<strong>by</strong> <%= suggestion.user.email %>
+<div class="comment-form">
+<%= render partial: 'suggestions/form', locals: { post: suggestion.post, parent: suggestion } %>
+</div>
+<div class="px-5">
+<%= render suggestion.suggestions%>
+</p>
+</div>
+
+<hr/>
+</div>
+
+<% if current_user == @post.user %>
+<%= link_to 'Delete', [suggestion.post,suggestion], method: :delete, class:"btn btn-danger"%>
+<% end %>
+
