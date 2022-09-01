@@ -10,4 +10,5 @@ class Post < ApplicationRecord
   has_one_attached :image, dependent: :destroy
   has_many :reports, dependent: :destroy
   has_rich_text :body
+  validates :body, presence: true
 end

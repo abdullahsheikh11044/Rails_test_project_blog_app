@@ -38,7 +38,6 @@ gem 'rails_admin'
 gem 'rubocop-rails', require: false
 gem 'trix'
 gem 'webpacker'
-# gem 'image_processing'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

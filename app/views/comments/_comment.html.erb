@@ -8,7 +8,7 @@
 <div class="comment-form">
 <%= render partial: 'comments/form', locals: {post: comment.post, parent: comment}%>
 </div>
-<div class="sub-comment">
+<div class="px-5">
 <%= render comment.comments%>
 </p>
 </div>
@@ -16,7 +16,7 @@
 
 </div>
 
-<% if current_user.present?  && current_user == @post.user %>
+<% if @post.user.id.eql?(current_user.id) %>
 <%= link_to 'Delete', [comment.post,comment], method: :delete, class:"btn btn-danger"%>
 <% end %>
 <hr/>

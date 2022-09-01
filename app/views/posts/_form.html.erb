@@ -1,6 +1,9 @@
 
 <div class="container">
     <%= form_for @post do |f| %>
+    <%@post.errors.full_messages.each do |message|%>
+    <%=message%><br>
+    <%end%>
     <div class="field form-group">
     <%= f.text_field :title,class:"form-control", placeholder:"Title" %>
     </div>

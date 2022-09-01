@@ -7,36 +7,32 @@
         <h5 class="card-text"><strong>Description: </strong><%=  @post.body %></h5>
         <p>by <%= @post.user.email%></p>
         <hr/>
-      <% if current_user.present?  && (current_user.id == @post.user_id || current_user.moderator?) %>
+      <% if current_user.id.eql?(@post.user_id) || current_user.moderator? %>
         <%= link_to "Edit", edit_post_path(@post), class:"btn btn-primary"%>
         <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure"}, class:"btn btn-danger"%>
       <% end %>
     </div>
-    <%if current_user.present? && current_user != @post.user%>
+    <%if !@post.user.id.eql?(current_user.id) %>
       <%= link_to "Suggest", new_post_suggestion_path(@post), class:"btn btn-primary"%> 
     <%end%>
   <div>
 </div>
 <br/>
 <div class="container">
-<% if user_signed_in? && current_user.user? %>
+<% if user_signed_in?%>
   <%= render partial: 'likes/button', locals:{likeable: @post}%>
-<%end%>
 </div>
 <br/>
 <hr/>
 <div class="container">
-<% if user_signed_in?%>
 <h4>Reports : </h4>
   <%= render @post.reports %>
-  <% if current_user.user? && current_user != @post.user %>
+  <% if current_user != @post.user %>
     <%= render partial: 'reports/form',locals: { post: @post }%>
   <%end%>
-<%end%>
 </div>
 <br/>
 <hr/>
-<% if user_signed_in? && current_user.user?%>
   <div class="container">
       <div class="comment-form"> 
         <h3>Leave a comment</h3>
@@ -55,5 +51,5 @@
     <%= render @post.suggestions.where(parent_id: nil).order(id: :desc)%>
   </div>
 <% else %>
-  <%= link_to "Login as user",new_user_session_path%>
+  <%= link_to "Login",new_user_session_path%>
 <%end%>

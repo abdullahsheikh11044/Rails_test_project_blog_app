@@ -31,7 +31,7 @@
         </div>
     </div>
     <br/><br/>
-<% elsif post.publish? && post.reports.count > 0 %>
+<% elsif post.publish? && post.reports.count.positive? %>
 <div class="card w-50 shadow">
         <h4> Reported Post : </h4>
         <div class="card-body">
