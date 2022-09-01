@@ -27,7 +27,7 @@
 <div class="container">
 <h4>Reports : </h4>
   <%= render @post.reports %>
-  <% if current_user != @post.user %>
+  <% if !@post.user.id.eql?(current_user.id) %>
     <%= render partial: 'reports/form',locals: { post: @post }%>
   <%end%>
 </div>
