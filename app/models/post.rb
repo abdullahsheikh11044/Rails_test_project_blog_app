@@ -8,4 +8,6 @@ class Post < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   enum status: { publish: 0, unpublish: 1 }
   has_many :suggestions, dependent: :destroy
+  has_one_attached :image, dependent: :destroy
+  has_many :reports, dependent: :destroy
 end

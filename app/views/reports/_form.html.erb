@@ -1,0 +1,13 @@
+
+<div class="container">
+    <%= form_for([@post, @post.reports.build]) do |f| %>
+    <div class="field form-group">
+    <%= f.text_field :body, class:"form-control", placeholder:"Detail" %>
+    </div>
+    <br /> <br />
+    <div class="actions">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+    <% end %>
+</div>
+

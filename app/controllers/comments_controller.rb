@@ -11,20 +11,25 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to post_path(@post)
     else
-      flash[:notice] = @comment.errors.full_messages.to_sentence
+      flash[:notice] = @comment.errors.full_messages.to_sentence  
     end
   end
 
   def destroy
     @post = Post.find_by(id: params[:post_id])
     @comment = @post.comments.find_by(id: params[:id])
-    flash[:notice] = @comment.errors.full_messages.to_sentence unless @comment.destroy
-    redirect_to post_path(@post)
+    if @comment.destroy
+      redirect_to post_path(@post)
+    else
+      flash[:notice] = @comment.errors.full_messages.to_sentence
+    end
   end
 
   def show
     @comment = Comment.find_by(id: params[:id])
   end
+
+  private
 
   def params_comment
     params.require(:comment).permit(:comment, :parent_id, :user_id).with_defaults(user_id: current_user.id)

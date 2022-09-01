@@ -1,3 +1,6 @@
 require: rubocop-rails
 require: ubocop-other-extension
 require: rubocop-rails
+
+Style/Documentation:
+  Enabled: false
