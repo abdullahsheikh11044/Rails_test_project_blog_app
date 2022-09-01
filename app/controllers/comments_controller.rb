@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to post_path(@post)
     else
-      flash[:notice] = @comment.errors.full_messages.to_sentence  
+      flash[:notice] = @comment.errors.full_messages.to_sentence
     end
   end
 
