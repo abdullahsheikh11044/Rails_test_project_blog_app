@@ -4,7 +4,7 @@
     <div class="card-body">
         <img src=<%= url_for(@post.image) %> class="img-thumbnail">
         <h4 class="card-title">Title: <%= @post.title %></h4>
-        <h5 class="card-text"><strong>Description: </strong><%= sanitize @post.content %></h5>
+        <h5 class="card-text"><strong>Description: </strong><%=  @post.body %></h5>
         <p>by <%= @post.user.email%></p>
         <hr/>
       <% if current_user.present?  && (current_user.id == @post.user_id || current_user.moderator?) %>

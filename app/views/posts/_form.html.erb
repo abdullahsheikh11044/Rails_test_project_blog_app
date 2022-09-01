@@ -7,8 +7,7 @@
     <br /> <br />
 
     <div class="field form-group">
-      <%= f.hidden_field :content%>
-      <trix-editor input="post_content"></trix-editor>
+      <%= f.rich_text_area :body %>
   </div>
 
   <div class="field form-group">
