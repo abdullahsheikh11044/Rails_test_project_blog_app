@@ -3,7 +3,10 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "4.3.0",
-    "actiontext": "https://github.com/rails/actiontext"   
+    "actiontext": "https://github.com/rails/actiontext",
+    "node": "10.19.0",
+    "npm": "6.14.4",
+    "yarn": "1.22.19"
   }
  
 }
