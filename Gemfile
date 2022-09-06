@@ -33,6 +33,7 @@ gem 'actiontext', github: 'rails/actiontext', branch: 'archive', require: 'actio
 gem 'cloudinary'
 gem 'devise' # Use Redis adapter to run Action Cable in production
 gem 'image_processing', '~> 1.2' # for Active Storage variants
+gem 'pagy'
 gem 'pundit', '~> 2.2'
 gem 'rails_admin'
 gem 'rubocop-rails', require: false

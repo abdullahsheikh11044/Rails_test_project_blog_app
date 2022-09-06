@@ -1,14 +1,9 @@
- <%=likeable.likes.count %> likes
- 
+ <div id="likes_count"><%=likeable&.likes&.count %>  likes </div>
  <% like = current_user.likes.find_by(likeable: likeable)%>
-
+ 
   <% if like.nil? %>
-  
-    <%= button_to "Like", likes_path, params: { like: { likeable_id: likeable.id, likeable_type: likeable.class.to_s}}, method: :post%>
-  
+    <%= button_to "Like", likes_path, params: { like: { likeable_id: likeable&.id, likeable_type: likeable.class.to_s}}, method: :post, class:"btn btn-primary btn-md",remote: true%>
   <%else%>
-  
-      <%=button_to "Unlike", like_path(like), method: :delete%>
-  
+      <%=button_to "Unlike", like_path(like), method: :delete, class:"btn btn-danger btn-md", remote: true%>
   <%end%>
   

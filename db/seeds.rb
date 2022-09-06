@@ -6,3 +6,28 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+user1 = User.create!(
+    name: "Abdullah",
+    email: "abdullahrafique266@gmail.com",
+    password: "12345678",
+    role: 0,
+)
+Post.create([{
+    title: "First Post",
+    body: "Hello world!",
+    status: 0,
+    user_id: user1.id,
+  },
+  {
+    title: "First Post",
+    body: "Hello world!",
+    status: 0,
+    user_id: user1.id,
+  },
+  {
+    title: "First Post",
+    body: "Hello world!",
+    status: 0,
+    user_id: user1.id,
+  }])
+  

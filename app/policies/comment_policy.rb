@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PostPolicy < ApplicationPolicy
+class CommentPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
@@ -9,21 +9,12 @@ class PostPolicy < ApplicationPolicy
   end
 
   def index?
-    user_or_moderator?
-  end
-
-  def new?
     user?
   end
-  alias show? index?
-  alias create? new?
-  alias update? index?
-  alias edit? index?
+  alias create? index?
   alias destroy? index?
-
-  def user_or_moderator?
-    @user.user? || @user.moderator?
-  end
+  alias update? index?
+  alias show? index?
 
   def user?
     @user.user?

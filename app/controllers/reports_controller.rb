@@ -14,6 +14,6 @@ class ReportsController < ApplicationController
   private
 
   def report_params
-    params.require(:report).permit(:body, :post_id).with_defaults(user_id: current_user.id)
+    params.require(:report).permit(:body, :reportable_id, :reportable_type).with_defaults(user_id: current_user.id)
   end
 end

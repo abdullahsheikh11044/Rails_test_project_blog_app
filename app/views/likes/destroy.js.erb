@@ -1,0 +1,2 @@
+$("#likes-ajax").html("<%= escape_javascript render partial: 'likes/button', locals:{likeable: @likeable} %>");
+$('#likes-count').html("<%= @likeable.likes.count %>")

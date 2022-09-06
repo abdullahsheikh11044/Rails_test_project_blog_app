@@ -14,5 +14,7 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+//= require jquery
+//= require jquery_ujs
 import "trix"
 import "@rails/actiontext"

@@ -2,12 +2,13 @@
 <div class="container">
     <%= form_for([@post, @post.reports.build]) do |f| %>
     <div class="field form-group">
-    <%= f.text_field :body, class:"form-control", placeholder:"Detail" %>
+    <%= f.text_field :body, class:"form-control", placeholder:"Report", params: { report: { reportable_id: reportable.id, reportable_type: reportable.class.to_s}}, method: :post %>
     </div>
     <br /> <br />
-    <div class="actions">
+    <div class="actions d-flex justify-content-end">
     <%= f.submit class: 'btn btn-primary' %>
   </div>
     <% end %>
 </div>
 
+ 

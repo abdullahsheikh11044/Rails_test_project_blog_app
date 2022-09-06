@@ -1,4 +1,32 @@
+<%= link_to "New Post", new_post_path%>
 <div class="container">
-<strong><h1>BLOG APP</h1></strong>
+<div class="row">
+<%@post.each do |post|%>
+<div class=" col-6 ">
+<% if (post.unpublish? || post.publish? ) && current_user == post.user%>
+    <div class="card w-75 shadow">
+        <div class="card-body">
+            <% if post.image.attached?%>
+            <img src=<%= url_for(post.image) %> class="img-fluid">
+            <%end%>
+            <h5 class="card-title">Title : 
+                <%= post.title%>
+                </h5>
+                <br/>
+                <div class="align">
+                <div class="card-text">
+                 Description:   <%=  post.body%>
+                </div>
+                </div><br>
+                <%= link_to 'Show', post, class:"btn btn-primary "%>
+        </div>
+    </div>
+<br/>
+<%end%>
 </div>
+<%end%>
+
+</div>
+</div>
+
 

@@ -1,0 +1,11 @@
+.card-text{
+    >.trix-content {
+        display: inline-block;
+    }
+}
+
+.img-fluid {
+    width: 500px;
+    height: 200px;
+    object-fit: cover;
+}
