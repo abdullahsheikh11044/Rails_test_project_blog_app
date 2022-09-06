@@ -1,7 +1,7 @@
 
 <div class="container">
 
-  <%= form_for([@post, @post.comments.build]) do |f| %>
+  <%= form_for([@post, @post.comments.build], url: post_comments_path(@post.id), method: :post, remote: true) do |f| %>
     <% if !parent.nil? %>
       <input type="hidden" name="comment[parent_id]" value="<%= parent.id %>">
     <% end %>
@@ -9,12 +9,17 @@
     <div class="feild form-group">
       <%= f.text_area :comment, required: true, class:"form-control", placeholder:"Comment" %>
     </div>  
+    <br /> 
+    <div class="feild form-group">
+    <%= f.label :picture %>
+    <%= f.file_field :picture, class:"form-control"%>
+      </div>  
     <br /> <br />
 
-    <div class="actions">
+    <div class="actions d-flex justify-content-end">
       <%= f.submit class: 'btn btn-primary' %>
     </div>
-
+    <hr/>
   <% end %>
 </div>
 

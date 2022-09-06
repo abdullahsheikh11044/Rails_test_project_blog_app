@@ -1,25 +1,39 @@
 
-<div class="container">
+<div class="container ">
     <%= form_for @post do |f| %>
-    <div class="feild form-group">
+    <%@post.errors.full_messages.each do |message|%>
+    <%=message%><br>
+    <%end%>
+    <% if current_user.moderator?%>
+    <div>    
+    <%= f.label :Post_Type %>    
+    <%= f.select :status, Post.statuses.keys.to_a %>  
+    </div>
+    <%else%>
+    <div class="field form-group">
     <%= f.text_field :title,class:"form-control", placeholder:"Title" %>
     </div>
     <br /> <br />
 
     <div class="field form-group">
-      <%= f.text_area :content,class:"form-control", placeholder:"Description" %>
-
+      <%= f.rich_text_area :body %>
   </div>
-    <br /> <br />
-    <% if current_user.admin?%>
-    <div>    
-    <%= f.label :Post_Type %>    
-    <%= f.select :status, Post.statuses.keys.to_a %>  
-    </div>
+
+  <div class="field form-group">
+    <% if @post.image.attached? %>  
+    <%= image_tag @post.image, style:"width: 200px; display: block" %>
     <%end%>
-    <div class="actions">
+    <%= f.label :image %>
+    <%= f.file_field :image, class:"form-control"%>
+    </div>
+    <br /> <br /> 
+  
+    <br /> <br />
+    
+    <div class="actions d-flex justify-content-end">
     <%= f.submit class: 'btn btn-primary' %>
   </div>
     <% end %>
 </div>
+<%end%>
 

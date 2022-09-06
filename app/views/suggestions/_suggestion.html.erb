@@ -4,6 +4,7 @@
 <strong><%= suggestion.content %></strong>
 <br/>
 <strong>by</strong> <%= suggestion.user.email %>
+<%if current_user == @post.user%>
 <div class="comment-form">
 <%= render partial: 'suggestions/form', locals: { post: suggestion.post, parent: suggestion } %>
 </div>
@@ -11,7 +12,7 @@
 <%= render suggestion.suggestions%>
 </p>
 </div>
-
+<%end%>
 <hr/>
 </div>
 

@@ -7,26 +7,24 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find_by(id: params[:post_id])
-    @comment = @post.comments.new(params_comment)
+    @comment = @post.comments.new(comment_params)
     if @comment.save
-      redirect_to post_path(@post)
+      respond_to do |format|
+        format.html { redirect_to post_path(@post) }
+        format.js { render 'create.js.erb' }
+      end
     else
       flash[:notice] = @comment.errors.full_messages.to_sentence
     end
-  end
-
-  def destroy
-    @post = Post.find_by(id: params[:post_id])
-    @comment = @post.comments.find_by(id: params[:id])
-    flash[:notice] = @comment.errors.full_messages.to_sentence unless @comment.destroy
-    redirect_to post_path(@post)
   end
 
   def show
     @comment = Comment.find_by(id: params[:id])
   end
 
-  def params_comment
-    params.require(:comment).permit(:comment, :parent_id, :user_id).with_defaults(user_id: current_user.id)
+  private
+
+  def comment_params
+    params.require(:comment).permit(:comment, :parent_id, :user_id, :picture).with_defaults(user_id: current_user.id)
   end
 end

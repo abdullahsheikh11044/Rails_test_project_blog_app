@@ -1,6 +1,6 @@
 <div class="container">
 
-  <%= form_for([@post, @post.suggestions.build]) do |f| %>
+  <%= form_for([@post, @post.suggestions.build], remote: true) do |f| %>
     <% if parent.present? %>
       <input type="hidden" name="suggestion[parent_id]" value="<%= parent.id %>">
     <% end %>
@@ -10,7 +10,7 @@
     </div>  
     <br /> <br />
 
-    <div class="actions">
+    <div class="actions d-flex justify-content-end">
       <%= f.submit class: 'btn btn-primary' %>
     </div>
 

@@ -1,0 +1,2 @@
+$("#comments-ajax").html("<%= escape_javascript render @post.comments.where(parent_id: nil).order(id: :desc) %>");
+$('#subtitle-count').html("<%= @post.comments.count %>")

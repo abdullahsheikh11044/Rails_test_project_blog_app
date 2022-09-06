@@ -1,24 +1,31 @@
 <div class="article">
-<p>
+    <strong><%=comment.comment%></strong>
+    <br/>
+    <% if comment.picture.attached?%>
+    <img src=<%= url_for(comment.picture) %> class="img-thumbnail">
+    <%end%>
+    <p>By <%= comment.user.email%></p>
+    <%# <div id="likes-ajax"> %>
+    <%= render partial: 'likes/button', locals:{likeable: comment} %>
+      <%# </div> %>
+      <br/>
+      <%= render partial: 'reports/form', locals:{reportable: comment} %>
+    <a href="#" class="comment-form-display">reply</a>
+    <div class="sub-comment">
+    <%= render partial: 'comments/form', locals: {post: comment.post, parent: comment}%>
+    </div>
+    <div class="px-5">
+    <%= render comment.comments%>
+  
+</div>
+</div>
 <hr/>
-<strong><%=comment.comment%></strong>
-<br/>
-<%=comment.user.email%>
-<br/>
-  <%= render partial: 'likes/button', locals:{likeable: comment}%>
-  <hr/>
-<div class="comment-form">
-<%= render partial: 'comments/form', locals: {post: comment.post, parent: comment}%>
-</div>
-<div class="px-5">
-<%= render comment.comments%>
-</p>
-</div>
-
-<hr/>
-</div>
-
-<% if current_user == @post.user %>
-<%= link_to 'Delete', [comment.post,comment], method: :delete, class:"btn btn-danger"%>
-<% end %>
+<script>
+document.querySelectorAll('.comment-form-display').forEach((el) => {
+    el.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        el.nextElementSibling.style = 'display: block;'
+    })
+})
+</script>
 

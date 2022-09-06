@@ -9,16 +9,23 @@ class PostPolicy < ApplicationPolicy
   end
 
   def index?
-    user_or_admin?
+    user_or_moderator?
   end
-  alias new? index?
+
+  def new?
+    user?
+  end
   alias show? index?
-  alias create? index?
+  alias create? new?
   alias update? index?
   alias edit? index?
   alias destroy? index?
 
-  def user_or_admin?
-    @user.user? || @user.admin?
+  def user_or_moderator?
+    @user.user? || @user.moderator?
+  end
+
+  def user?
+    @user.user?
   end
 end

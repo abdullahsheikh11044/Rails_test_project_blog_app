@@ -3,21 +3,23 @@
 class LikesController < ApplicationController
   def create
     @like = current_user.likes.new(like_params)
-    if !@like.save
-      flash[:notice] = @like.errors.full_messages.to_sentence
-    else
-      redirect_back(fallback_location: posts_url)
-    end
+    @likeable = if @like.likeable_type == 'Post'
+                  Post.find_by(id: @like.likeable_id)
+                else
+                  Comment.find_by(id: @like.likeable_id)
+                end
+    @like.save!
   end
 
   def destroy
     @like = current_user.likes.find_by(id: params[:id])
     likeable = @like.likeable
-    if !@like.destroy
-      flash[:notice] = @like.errors.full_messages.to_sentence
-    else
-      redirect_back(fallback_location: posts_url)
-    end
+    @likeable = if @like.likeable_type == 'Post'
+                  Post.find_by(id: @like.likeable_id)
+                else
+                  Comment.find_by(id: @like.likeable_id)
+                end
+    @like.destroy!
   end
 
   private

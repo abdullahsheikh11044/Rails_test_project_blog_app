@@ -1,32 +1,75 @@
-<div class="container-fluid">
-<%@post.each do |post|%>
-<% if post.unpublish? && current_user.admin?%>
-    <div class="card w-50">
-        <div class="card-body">
-            <h5 class="card-title">
-                <%= post.title%>
-                </h5>
-                <p class="card-text">
-                <%= post.content%>
-                </p><br>
-                <%= link_to 'Show', post, class:"btn btn-primary"%>
-        </div>
-    </div>
-<br>
-<% elsif post.publish? && current_user.user?%>
-<div class="card w-50">
-        <div class="card-body">
-            <h5 class="card-title">
-                <%= post.title%>
-                </h5>
-                <p class="card-text">
-                <%= post.content%>
-                </p><br>
-                <%= link_to 'Show', post, class:"btn btn-primary"%>
-        </div>
-    </div>
-<%end%>
-<%end%>
-
+<%= raw pagy_nav(@pagy) %>
+<div class="container">
 </div>
+<br/>
+<div class="container">
+<div class="row">
+<%@post.each do |post|%>
+<div class=" col-6 ">
+    <% if post.unpublish? && current_user.moderator?%>
+        <div class="card w-75 shadow">
+            <div class="card-body">
+                <% if post.image.attached?%>
+                    <img src=<%= url_for(post.image) %> class="img-fluid">
+                <%end%>
+                <h5 class="card-title">Title : 
+                    <%= post.title%>
+                </h5>
+                <br/>
+                <div class="align">
+                <div class="card-text">
+                Description : <%=  post.body%>
+                </div>
+                </div>
+                <br>
+                <%= link_to 'Show', post, class:"btn btn-primary"%>
+            </div>
+        </div>
+        <br/>
+
+    <% elsif post.publish? && current_user.user?%>
+    <div class="card text-center w-75 shadow">
+        <div class="card-body">
+            <% if post.image.attached?%>
+            <img src=<%= url_for(post.image) %> class="img-thumbnail">
+            <%end%>
+            <h5 class="card-title">Title :
+                <%= post.title%>
+                </h5>
+                <br/>
+                <div class="align">
+                <div class="card-text">
+                Description : <%=  post.body%>
+                </div>
+                </div>
+                <br>
+                <%= link_to 'Show', post, class:"btn btn-primary"%>
+        </div>
+    </div>
+    <br/><br/>
+<% elsif post.publish? && post.reports.count.positive? %>
+    <div class="card w-75 shadow">
+        <div class="card-body">
+        <% if post.image.attached?%>
+            <img src=<%= url_for(post.image) %> class="img-thumbnail">
+            <%end%>
+            <h5 class="card-title">Title :
+                <%= post.title%>
+                </h5>
+                <br/>
+                <div class="align">
+                <div class="card-text">
+                Description : <%=  post.body%>
+                </div>
+                </div><br>
+                <%= link_to 'Show', post, class:"btn btn-primary"%>
+        </div>
+    </div>
+    <br/><br/>    
+<%end%>
+</div>
+<%end%>
+</div>
+</div>
+
 
