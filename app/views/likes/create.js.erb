@@ -1,7 +1,3 @@
- <%# <%if @likeable == @post %>
     $("#likes-ajax").html("<%= escape_javascript render partial: 'likes/button', locals:{likeable: @likeable} %>");
     $('#likes-count').html("<%= @likeable.likes.count %>")
-<%# <%elsif @likeable == @comment >
-    $("#comment_like").html("<%= escape_javascript render partial: 'likes/button', locals:{likeable: @comment}>");
-    $('#likes-count').html("<%= likeable.likes.count >")
-<%# <%end%> 
+    
