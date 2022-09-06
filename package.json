@@ -4,11 +4,15 @@
   "dependencies": {
     "@rails/webpacker": "5.4.3",
     "actiontext": "https://github.com/rails/actiontext",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.x",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
     "webpack-dev-server": "^4.10.0"
+  },
+  "engines": {
+    "node": "^10.x"
+
   }
 }
