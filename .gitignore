@@ -7,7 +7,7 @@
 /config/cloudinary.yml
 # Ignore bundler config.
 /.bundle
-
+/node_modules
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
