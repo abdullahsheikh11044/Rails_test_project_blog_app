@@ -3,10 +3,10 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "4.3.0",
-    "actiontext": "https://github.com/kobaltz/actiontext",
-   
+    "actiontext": "https://github.com/kobaltz/actiontext"   
   },
 
+  
   "engines": {
     "node": "10.19.0",
     "npm": "6.14.4",
