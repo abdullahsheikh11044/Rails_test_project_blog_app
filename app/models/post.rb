@@ -11,5 +11,4 @@ class Post < ApplicationRecord
   has_many :reports, as: :reportable, dependent: :destroy
   has_rich_text :body
   validates :body, presence: true
-  # validates :image, content_type: ["image/png", "image/jpeg"]
 end
