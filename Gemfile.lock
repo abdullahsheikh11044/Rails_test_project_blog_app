@@ -299,7 +299,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.4)
     temple (0.8.2)
     thor (1.2.1)
     thread_safe (0.3.6)
@@ -364,7 +363,6 @@ DEPENDENCIES
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
-  sqlite3
   trix
   turbolinks (~> 5)
   tzinfo-data
