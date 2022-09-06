@@ -5,7 +5,6 @@
     "@rails/webpacker": "4.3.0",
     "actiontext": "https://github.com/rails/actiontext",
     "node": "10.19.0",
-    "npm": "6.14.4",
     "sass": "^1.54.8",
     "yarn": "1.22.19"
   }
