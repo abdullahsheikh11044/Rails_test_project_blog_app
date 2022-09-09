@@ -38,7 +38,7 @@ gem 'pagy'
 gem 'pundit', '~> 2.2'
 gem 'rails_admin'
 gem 'rubocop-rails', require: false
-gem 'trix'
+# gem 'trix'
 gem 'webpacker'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
