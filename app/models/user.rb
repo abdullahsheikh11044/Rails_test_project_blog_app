@@ -10,8 +10,11 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :suggestions, dependent: :destroy
   has_many :reports, dependent: :destroy
+
   enum role: { user: 0, admin: 1, moderator: 2 }
+
   validates :name, presence: true
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :lockable, :confirmable
 end

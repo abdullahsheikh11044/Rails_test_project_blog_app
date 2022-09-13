@@ -2,7 +2,6 @@
 
 class UsersController < ApplicationController
   def index
-    @user = User.find_by(id: params[:id])
-    @post = Post.all
+    @post = current_user.posts.all
   end
 end

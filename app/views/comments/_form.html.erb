@@ -6,16 +6,13 @@
       <input type="hidden" name="comment[parent_id]" value="<%= parent.id %>">
     <% end %>
 
-    <div class="feild form-group">
+    <div class="feild form-group pb-2">
       <%= f.text_area :comment, required: true, class:"form-control", placeholder:"Comment" %>
     </div>  
-    <br /> 
-    <div class="feild form-group">
+    <div class="feild form-group pb-4">
     <%= f.label :picture %>
     <%= f.file_field :picture, class:"form-control"%>
-      </div>  
-    <br /> <br />
-
+    </div>  
     <div class="actions d-flex justify-content-end">
       <%= f.submit class: 'btn btn-primary' %>
     </div>

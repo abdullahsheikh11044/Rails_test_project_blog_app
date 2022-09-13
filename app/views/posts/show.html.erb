@@ -4,7 +4,7 @@
     <div class="card-body shadow">
         <% if @post.unpublish? && current_user.moderator?%>
             <h4> Post to be approved : </h4>
-            <% elsif @post.publish? && @post.reports.count.positive? %>
+            <% elsif @post.publish? && report_count(@post) %>
             <h4> Reported Post : </h4>
         <%end%>
         <% if @post.image.attached?%>
@@ -16,34 +16,29 @@
           <hr/>
           
           <% if user_signed_in? && current_user.user?%>
-          <div class="container" id="likes-ajax">
+          <div class="container py-2" id="likes-ajax">
           <%= render partial: 'likes/button', locals:{likeable: @post}%>
           </div>
           <%end%>
           
-          <br/>
         <% if current_user.id.eql?(@post.user_id) || current_user.moderator? %>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end py-2">
         <%= link_to "Edit", edit_post_path(@post), class:"btn btn-primary btn-lg"%>
         <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure"}, class:"btn btn-danger btn-lg"%>
         </div>
         <% end %>
-        <br/>
               
     </div>
     <% if user_signed_in?%>
     <%if !@post.user.id.eql?(current_user.id) && current_user.user?%>
-    <div class="action d-flex justify-content-end">
+    <div class="action d-flex justify-content-end py-4">
       <%= link_to "Suggest", new_post_suggestion_path(@post), class:"btn btn-primary btn-md "%> 
       </div>
     <%end%>
   <div>
 </div>
-<br/>
 
-<br/>
-
-<div class="container">
+<div class="container py-2">
 <% if current_user.moderator? %>
     <h2 class="subtitle">Reports: <strong><%= @post.reports.count %></strong></h2>
   <%= render @post.reports %>
@@ -53,14 +48,12 @@
     <%= render partial: 'reports/form',locals: { reportable: @post }%>
   <%end%>
 </div>
-<br/>
 <hr/>
 <%end%>
 <% if  current_user.user?%>
   <div class="container">
       <div class="comment-form"> 
         <h3>Leave a comment</h3>
-    
         <%= render partial: 'comments/form',locals: {post: @post, parent:nil, comment: @comment}%>
       </div>
   </div>

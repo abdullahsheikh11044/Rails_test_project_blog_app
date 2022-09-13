@@ -5,10 +5,9 @@
       <input type="hidden" name="suggestion[parent_id]" value="<%= parent.id %>">
     <% end %>
 
-    <div class="feild form-group">
+    <div class="feild form-group py-4">
       <%= f.text_area :content, required: true, class:"form-control", placeholder:"Suggestion" %>
-    </div>  
-    <br /> <br />
+    </div>
 
     <div class="actions d-flex justify-content-end">
       <%= f.submit class: 'btn btn-primary' %>

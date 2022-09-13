@@ -13,26 +13,19 @@
   </div>
     </div>
     <%else%>
-    <div class="field form-group">
+    <div class="field form-group py-4">
     <%= f.text_field :title,class:"form-control", placeholder:"Title" %>
     </div>
-    <br /> <br />
-
     <div class="trix-content">
       <%= f.rich_text_area :body %>
   </div>
-
-  <div class="field form-group">
+  <div class="field form-group py-5">
     <% if @post.image.attached? %>  
     <%= image_tag @post.image, style:"width: 200px; display: block" %>
     <%end%>
     <%= f.label :image %>
     <%= f.file_field :image, class:"form-control"%>
     </div>
-    <br /> <br /> 
-  
-    <br /> <br />
-    
     <div class="actions d-flex justify-content-end">
     <%= f.submit class: 'btn btn-primary' %>
   </div>
