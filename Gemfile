@@ -12,8 +12,8 @@ gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
 gem 'sass', '~> 3.3.10'
+gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -38,7 +38,7 @@ gem 'pagy'
 gem 'pundit', '~> 2.2'
 gem 'rails_admin'
 gem 'rubocop-rails', require: false
-# gem 'trix'
+gem 'trix'
 gem 'webpacker'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

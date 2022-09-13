@@ -5,9 +5,12 @@
     <img src=<%= url_for(comment.picture) %> class="img-thumbnail">
     <%end%>
     <p>By <%= comment.user.email%></p>
-    <%# <div id="likes-ajax"> %>
-    <%= render partial: 'likes/button', locals:{likeable: comment} %>
-      <%# </div> %>
+    <% if user_signed_in? && current_user.user?%>
+        
+          <div class="container" id="comments-ajax">
+          <%= render partial: 'likes/button', locals:{likeable: comment} %>
+          </div>
+          <%end%>
       <br/>
       <%= render partial: 'reports/form', locals:{reportable: comment} %>
     <a href="#" class="comment-form-display">reply</a>

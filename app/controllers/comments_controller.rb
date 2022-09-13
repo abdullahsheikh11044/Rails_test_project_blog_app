@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
+
   def index
     @comment = Comment.all.order('created_at DESC')
   end
@@ -27,4 +28,5 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:comment, :parent_id, :user_id, :picture).with_defaults(user_id: current_user.id)
   end
+
 end

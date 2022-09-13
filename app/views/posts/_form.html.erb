@@ -8,6 +8,9 @@
     <div>    
     <%= f.label :Post_Type %>    
     <%= f.select :status, Post.statuses.keys.to_a %>  
+    <div class="actions d-flex justify-content-end">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
     </div>
     <%else%>
     <div class="field form-group">
@@ -15,7 +18,7 @@
     </div>
     <br /> <br />
 
-    <div class="field form-group">
+    <div class="trix-content">
       <%= f.rich_text_area :body %>
   </div>
 

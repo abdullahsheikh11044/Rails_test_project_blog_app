@@ -1,4 +1,4 @@
- <div id="likes_count"><%=likeable&.likes&.count %>  likes </div>
+ <%=likeable&.likes&.count %>  likes 
  <% like = current_user.likes.find_by(likeable: likeable)%>
  
   <% if like.nil? %>
