@@ -2,6 +2,6 @@
 
 class UsersController < ApplicationController
   def index
-    @post = current_user.posts.all
+    @posts = current_user.posts.all
   end
 end

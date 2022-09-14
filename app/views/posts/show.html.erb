@@ -4,7 +4,7 @@
     <div class="card-body shadow">
         <% if @post.unpublish? && current_user.moderator?%>
             <h4> Post to be approved : </h4>
-            <% elsif @post.publish? && report_count(@post) %>
+            <% elsif @post.publish? && report_count_positive(@post) %>
             <h4> Reported Post : </h4>
         <%end%>
         <% if @post.image.attached?%>

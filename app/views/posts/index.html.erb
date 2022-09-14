@@ -1,12 +1,12 @@
 <%= raw pagy_nav(@pagy) %>
 <div class="container py-4">
-<div class="row">
-<div class=" col-12 ">
-<div class='container-fluid'> 
-<div class='row'> 
-<%@post.each do |post|%>
-<div class='col-lg-6 my-2'>
-<% if post.unpublish? && current_user.moderator?%>
+    <div class="row">
+        <div class=" col-12 ">
+        <div class='container-fluid'> 
+        <div class='row'> 
+            <%@post.each do |post|%>
+        <div class='col-lg-6 my-2'>
+            <% if post.unpublish? && current_user.moderator?%>
         <div class="card w-75 shadow py-2">
             <div class="card-body">
                 <% if post.image.attached?%>
@@ -40,9 +40,8 @@
                 <%= link_to 'Show', post, class:"btn btn-primary"%>
         </div>
     </div>
-<%end%>
- </div>
-    
+    <%end%>
+</div>    
 <%end%>
 </div>
 </div>

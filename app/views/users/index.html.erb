@@ -1,7 +1,7 @@
 <%= link_to "New Post", new_post_path, class:'btn btn-primary'%>
 <div class="container">
 <div class="row">
-<%@post.each do |post|%>
+<%@posts.each do |post|%>
 <div class=" col-6 ">
 <% if (post.unpublish? || post.publish? ) && current_user == post.user%>
     <div class="card w-75 shadow py-2">

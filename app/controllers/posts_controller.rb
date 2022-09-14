@@ -19,6 +19,7 @@ class PostsController < ApplicationController
       redirect_to @post, flash: { notice: 'Post is susscessfuly  created' }
     else
       render 'new'
+      flash[:notice] = @post.errors.full_messages.to_sentence
     end
   end
 
@@ -32,6 +33,7 @@ class PostsController < ApplicationController
       redirect_to @post, flash: { notice: 'Post is susscessfuly  updated' }
     else
       render 'edit'
+      flash[:notice] = @post.errors.full_messages.to_sentence
     end
   end
 
@@ -41,8 +43,11 @@ class PostsController < ApplicationController
 
   def destroy
     authorize @post
-    flash[:notice] = @post.errors.full_messages.to_sentence unless @post.destroy
-    redirect_to posts_path, flash: { notice: 'Post is susscessfuly  deleted' }
+    if @post.destroy
+      redirect_to posts_path, flash: { notice: 'Post is susscessfuly  deleted' }
+    else
+      flash[:notice] = @post.errors.full_messages.to_sentence
+    end
   end
 
   private
