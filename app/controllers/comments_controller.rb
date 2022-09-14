@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-
+  before_action :find_post, only: [:create]
   def index
     @comment = Comment.all.order('created_at DESC')
   end
 
   def create
-    @post = Post.find_by(id: params[:post_id])
     @comment = @post.comments.new(comment_params)
     if @comment.save
       respond_to do |format|
@@ -29,4 +28,7 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:comment, :parent_id, :user_id, :picture).with_defaults(user_id: current_user.id)
   end
 
+  def find_post
+    @post = Post.find_by(id: params[:post_id])
+  end
 end

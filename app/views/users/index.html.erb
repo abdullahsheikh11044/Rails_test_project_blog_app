@@ -1,27 +1,25 @@
 <%= link_to "New Post", new_post_path, class:'btn btn-primary'%>
 <div class="container">
 <div class="row">
-<%@post.each do |post|%>
+<%@posts.each do |post|%>
 <div class=" col-6 ">
 <% if (post.unpublish? || post.publish? ) && current_user == post.user%>
-    <div class="card w-75 shadow">
+    <div class="card w-75 shadow py-2">
         <div class="card-body">
             <% if post.image.attached?%>
             <img src=<%= url_for(post.image) %> class="img-fluid">
             <%end%>
-            <h5 class="card-title">Title : 
+            <h5 class="card-title py-2">Title : 
                 <%= post.title%>
                 </h5>
-                <br/>
-                <div class="align">
+                <div class="align py-2">
                 <div class="card-text">
                  Description:   <%=  post.body%>
                 </div>
-                </div><br>
+                </div>
                 <%= link_to 'Show', post, class:"btn btn-primary "%>
         </div>
     </div>
-<br/>
 <%end%>
 </div>
 <%end%>

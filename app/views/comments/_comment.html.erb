@@ -1,26 +1,23 @@
 <div class="article">
-    <strong><%=comment.comment%></strong>
-    <br/>
-    <% if comment.picture.attached?%>
-    <img src=<%= url_for(comment.picture) %> class="img-thumbnail">
-    <%end%>
-    <p>By <%= comment.user.email%></p>
-    <% if user_signed_in? && current_user.user?%>
-        
-          <div class="container" id="comments-ajax">
+    <strong class="pb-2"><%=comment.comment%></strong>
+        <% if comment.picture.attached?%>
+            <img src=<%= url_for(comment.picture) %> class="img-thumbnail">
+        <%end%>
+        <p>By <%= comment.user.email%></p>
+        <% if user_signed_in? && current_user.user?%>   
+          <div class="container pb-2" id="comments-ajax">
           <%= render partial: 'likes/button', locals:{likeable: comment} %>
           </div>
-          <%end%>
-      <br/>
-      <%= render partial: 'reports/form', locals:{reportable: comment} %>
-    <a href="#" class="comment-form-display">reply</a>
-    <div class="sub-comment">
-    <%= render partial: 'comments/form', locals: {post: comment.post, parent: comment}%>
-    </div>
-    <div class="px-5">
-    <%= render comment.comments%>
+        <%end%>
+        <%= render partial: 'reports/form', locals:{reportable: comment} %>
+        <a href="#" class="comment-form-display">reply</a>
+        <div class="sub-comment">
+            <%= render partial: 'comments/form', locals: {post: comment.post, parent: comment}%>
+        </div>
+        <div class="px-5">
+            <%= render comment.comments%>
   
-</div>
+        </div>
 </div>
 <hr/>
 <script>

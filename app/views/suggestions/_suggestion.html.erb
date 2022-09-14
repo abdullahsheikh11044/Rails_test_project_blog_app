@@ -1,8 +1,7 @@
 <div class="article">
 <p>
 
-<strong><%= suggestion.content %></strong>
-<br/>
+<strong class="py-2"><%= suggestion.content %></strong>
 <strong>by</strong> <%= suggestion.user.email %>
 <%if current_user == @post.user%>
 <div class="comment-form">

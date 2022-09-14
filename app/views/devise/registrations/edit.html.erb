@@ -10,17 +10,16 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field from-group">
+  <div class="field from-group py-2">
     <br />
     <%= f.email_field :email,class:"form-control", autofocus: true, autocomplete: "email" %>
   </div>
-  <br/>
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
   <div class="field from-group">
-    <i>(leave blank if you don't want to change it)</i><br />
+    <i class="py-2">(leave blank if you don't want to change it)</i>
     <%= f.password_field :password, class:"form-control", placeholder:"Password", autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
@@ -28,19 +27,16 @@
     <% end %>
   </div>
 
-  <div class="field from-group">
+  <div class="field from-group py-2">
     <%= f.password_field :password_confirmation, class:"form-control", placeholder:"Password Comfirmation", autocomplete: "new-password" %>
   </div>
-  <br/>
-  <div class="field from-group">
+  <div class="field from-group py-2">
      <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, class:"form-control", placeholder:"Current Password", autocomplete: "current-password" %>
   </div>
-  <br/>
-  <div class="actions">
+  <div class="actions py-2">
     <%= f.submit "Update",class:'btn btn-primary' %>
   </div>
-  <br/>
 <% end %>
 
 <h3>Cancel my account</h3>
