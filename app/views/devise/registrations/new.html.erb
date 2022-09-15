@@ -5,8 +5,7 @@
 <h2>Sign up</h2>
 
  <div class="card text-black" style="border-radius: 25px;">
- <div class="row justify-content-center">
- <br/>
+ <div class="row justify-content-center py-2">
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
   <div class="field form-group mb-3">

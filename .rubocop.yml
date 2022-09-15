@@ -13,7 +13,7 @@ AllCops:
     - 'vendor/bundle/**/*'
     - 'bin/**/*'
     - 'db/**/*'
-    
+    - 'app/models/**'
 Layout/LineLength:
   Max: 120
   
