@@ -9,14 +9,14 @@ RSpec.describe Comment, type: :model do
   let(:comment) { create :comment }
 
   describe 'assocaitions' do
-    it { is_expected.to belong_to(:user).class_name('User') }
-    it { is_expected.to belong_to(:post).class_name('Post') }
-    it { is_expected.to have_many(:likes).class_name('Like') }
+    it { should belong_to(:user).class_name('User') }
+    it { should belong_to(:post).class_name('Post') }
+    it { should have_many(:likes).class_name('Like') }
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:comment) }
-    it { is_expected.to validate_length_of(:comment).is_at_most(25) }
+    it { should validate_presence_of(:comment) }
+    it { should validate_length_of(:comment).is_at_most(25) }
   end
 
   context 'Creating comment' do

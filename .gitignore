@@ -8,6 +8,7 @@
 # Ignore bundler config.
 /.bundle
 /node_modules
+/home/dev/Documents/blog_app/coverage
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*

@@ -8,17 +8,17 @@ RSpec.describe Post, type: :model do
   let(:post) { create :post }
 
   describe 'assocaitions' do
-    it { is_expected.to belong_to(:user).class_name('User') }
-    it { is_expected.to have_many(:comments).class_name('Comment') }
-    it { is_expected.to have_many(:likes).class_name('Like') }
-    it { is_expected.to have_many(:suggestions).class_name('Suggestion') }
-    it { is_expected.to have_many(:reports).class_name('Report') }
+    it { should belong_to(:user).class_name('User') }
+    it { should have_many(:comments).class_name('Comment') }
+    it { should have_many(:likes).class_name('Like') }
+    it { should have_many(:suggestions).class_name('Suggestion') }
+    it { should have_many(:reports).class_name('Report') }
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:title) }
-    it { is_expected.to validate_presence_of(:body) }
-    it { is_expected.to validate_length_of(:title).is_at_most(15) }
+    it { should validate_presence_of(:title) }
+    it { should validate_presence_of(:body) }
+    it { should validate_length_of(:title).is_at_most(15) }
   end
 
   context 'Creating post' do

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'factory_bot'
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
@@ -9,6 +10,7 @@ FactoryBot.define do
     email { Faker::Internet.email }
     password { '123456' }
     role { 0 }
+    after :create, &:confirm
   end
   factory :post do
     association :user
