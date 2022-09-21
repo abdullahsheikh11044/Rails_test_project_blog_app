@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'factory/factories'
+require 'factory/user_factory'
+require 'factory/post_factory'
+require 'factory/comment_factory'
 
 RSpec.describe Comment, type: :model do
   let(:user) { create :user }
   let(:post) { create :post }
-  let(:comment) { create :comment }
+  let!(:comment) { create :comment }
 
   describe 'assocaitions' do
-    it { should belong_to(:user).class_name('User') }
-    it { should belong_to(:post).class_name('Post') }
-    it { should have_many(:likes).class_name('Like') }
+    it { should belong_to(:user) }
+    it { should belong_to(:post) }
+    it { should have_many(:likes).dependent(:destroy) }
   end
 
   describe 'validations' do
@@ -20,18 +22,12 @@ RSpec.describe Comment, type: :model do
   end
 
   context 'Creating comment' do
-    it 'with all values null is not valid' do
-      comment = described_class.new
+    it 'should be invalid when comment is null' do
+      comment.comment = ''
       expect(comment).to be_invalid
     end
 
-    it 'without comment is not valid' do
-      comment.comment = ''
-      expect(described_class.new(post_id: post.id, user_id: user.id)).to be_invalid
-    end
-
-    it 'with comment is valid' do
-      comment.comment = 'asds'
+    it 'should be valid with comment not null' do
       expect(comment).to be_valid
     end
   end

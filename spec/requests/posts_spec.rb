@@ -109,9 +109,19 @@ end
         expect(response).to redirect_to posts_path
     end
 
-    it 'should not deletes post if it doesnt exist' do
-      sign_in(user1)
-      allow_any_instance_of(Post).to receive(:destroy).and_return(false)
+    context "This is checking the destroy fail case" do
+      let(:post3) {build_stubbed(:post)}
+      before(:each) do
+      allow(controller).to receive(:find).and_return(post3)
+      allow(controller).to receive(:destroy).and_return(false)
+      end
+      it 'should not deletes post if it doesnt exist' do
+        sign_in(user1)
+        user1.moderator!
+        puts post3.id
+        delete post_path(post3)
+        expect(flash[:alert]).to eq("This post does not exists")
+      end
     end
     it 'should not deletes posts when user is not post user' do
       sign_in(user2)
@@ -127,13 +137,20 @@ end
   end
 
   describe 'update#post ' do
-    it 'updates posts only when role is user' do
+    it 'should updates posts when role is user' do
         sign_in(user1)
         params = { post: { title: 'hello', body: '!111' }, user_id: user1.id, id: post1.id }
         patch post_path(params)
         expect(response).to redirect_to post_path(post1.id)
     end
 
+    it 'should updates posts when role is moderator' do
+      sign_in(user1)
+      user1.moderator!
+      params = { post: { title: 'hello', body: '!111' }, user_id: user1.id, id: post1.id }
+      patch post_path(params)
+      expect(response).to redirect_to post_path(post1.id)
+  end
     it ' should not updates posts when invalid params' do
       sign_in(user1)
       params = { post: { title: 'hello', body: '' }, user_id: user1.id, id: post1.id }

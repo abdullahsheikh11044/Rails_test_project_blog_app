@@ -20,7 +20,7 @@ class PostPolicy < ApplicationPolicy
   def update?
     if @user.moderator?     
       true 
-    elsif @user.user?
+    else
       @user.user? && (@user == @post.user)
     end
   end

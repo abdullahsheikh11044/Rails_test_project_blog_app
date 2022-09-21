@@ -42,11 +42,11 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    authorize @post
+    authorize @post,policy_class: PostPolicy
     if @post.destroy
       redirect_to posts_path, flash: { notice: 'Post is susscessfuly  deleted' }
     else
-      flash[:notice] = @post.errors.full_messages.to_sentence
+      flash[:alert] = "This post does not exists"
     end
   end
 

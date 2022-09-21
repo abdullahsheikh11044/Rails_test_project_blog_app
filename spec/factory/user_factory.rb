@@ -6,21 +6,10 @@ RSpec.configure do |config|
 end
 FactoryBot.define do
   factory :user do
-    name { 'Abdullah' }
+    name { Faker::Name.name  }
     email { Faker::Internet.email }
     password { '123456' }
     role { 0 }
     after :create, &:confirm
-  end
-  factory :post do
-    association :user
-    title { 'First Post' }
-    body { 'hsagjdga' }
-    status { 0 }
-  end
-  factory :comment do
-    association :user
-    association :post
-    comment { 'hsagjdga' }
   end
 end
