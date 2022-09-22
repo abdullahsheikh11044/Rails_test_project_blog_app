@@ -16,7 +16,7 @@ class PostsController < ApplicationController
     @post.user = current_user
     authorize @post
     if @post.save
-      redirect_to @post, flash: { notice: 'Post is susscessfuly  created' }
+      redirect_to @post, flash: { notice: 'Post is successfully  created' }
     else
       render 'new'
       flash[:notice] = @post.errors.full_messages.to_sentence
@@ -30,7 +30,7 @@ class PostsController < ApplicationController
   def update
     authorize @post
     if @post.update(post_params)
-      redirect_to @post, flash: { notice: 'Post is susscessfuly  updated' }
+      redirect_to @post, flash: { notice: 'Post is successfully  updated' }
     else
       render 'edit'
       flash[:notice] = @post.errors.full_messages.to_sentence
@@ -42,11 +42,12 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    authorize @post,policy_class: PostPolicy
+    authorize @post, policy_class: PostPolicy
+
     if @post.destroy
-      redirect_to posts_path, flash: { notice: 'Post is susscessfuly  deleted' }
+      redirect_to posts_path, flash: { notice: 'Post is successfully  deleted' }
     else
-      flash[:alert] = "This post does not exists"
+      flash[:alert] = 'This post does not exists'
     end
   end
 
@@ -58,5 +59,9 @@ class PostsController < ApplicationController
 
   def find_post
     @post = Post.find_by(id: params[:id])
+    if @post.nil?
+      flash[:alert] = 'This post does not exists'
+      redirect_to root_path
+    end
   end
 end

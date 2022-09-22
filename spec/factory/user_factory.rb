@@ -1,15 +1,23 @@
 # frozen_string_literal: true
+
 require 'factory_bot'
 
-RSpec.configure do |config|
-  config.include FactoryBot::Syntax::Methods
-end
 FactoryBot.define do
   factory :user do
-    name { Faker::Name.name  }
+    name { Faker::Name.name }
     email { Faker::Internet.email }
-    password { '123456' }
-    role { 0 }
+    password { Faker::Internet.password }
+    role { User.roles.keys.sample }
+
+    trait :moderator do
+      role { :moderator }
+    end
+    trait :user do
+      role { :user }
+    end
+    trait :admin do
+      role { :admin }
+    end
     after :create, &:confirm
   end
 end

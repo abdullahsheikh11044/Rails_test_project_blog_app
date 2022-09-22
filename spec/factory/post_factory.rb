@@ -1,14 +1,20 @@
 # frozen_string_literal: true
+
 require 'factory_bot'
 
-RSpec.configure do |config|
-  config.include FactoryBot::Syntax::Methods
-end
-FactoryBot.define do  
+FactoryBot.define do
   factory :post do
     association :user
-    title { Faker::Lorem.word}
+    title { Faker::Lorem.word }
     body { Faker::Lorem.word }
-    status { 0 }
+    status { Post.statuses.keys.sample }
+
+    trait :publish do
+      status { :publish }
+    end
+
+    trait :unpublish do
+      status { :unpublish }
+    end
   end
 end

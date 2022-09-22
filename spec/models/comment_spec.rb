@@ -6,27 +6,14 @@ require 'factory/post_factory'
 require 'factory/comment_factory'
 
 RSpec.describe Comment, type: :model do
-  let!(:comment) { create :comment }
-
   describe 'associations' do
-    it { should belong_to(:user) }
-    it { should belong_to(:post) }
-    it { should have_many(:likes).dependent(:destroy) }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:post) }
+    it { is_expected.to have_many(:likes).dependent(:destroy) }
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:comment) }
-    it { should validate_length_of(:comment).is_at_most(25) }
-  end
-
-  context 'Creating comment' do
-    it 'should be invalid when comment is null' do
-      comment.comment = ''
-      expect(comment).to be_invalid
-    end
-
-    it 'should be valid with comment not null' do
-      expect(comment).to be_valid
-    end
+    it { is_expected.to validate_presence_of(:comment) }
+    it { is_expected.to validate_length_of(:comment).is_at_most(25) }
   end
 end
