@@ -24,7 +24,13 @@ class PostPolicy < ApplicationPolicy
       @user.user? && (@user == @post.user)
     end
   end
-  alias edit? index?
+  def edit?
+    if @user.moderator?     
+      true 
+    else
+      @user.user? && (@user == @post.user)
+    end
+  end
   def destroy?
     if @user.moderator?
       true

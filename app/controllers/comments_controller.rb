@@ -2,9 +2,6 @@
 
 class CommentsController < ApplicationController
   before_action :find_post, only: [:create]
-  def index
-    @comment = Comment.all.order('created_at DESC')
-  end
 
   def create
     @comment = @post.comments.new(comment_params)
@@ -16,10 +13,6 @@ class CommentsController < ApplicationController
     else
       flash[:notice] = @comment.errors.full_messages.to_sentence
     end
-  end
-
-  def show
-    @comment = Comment.find_by(id: params[:id])
   end
 
   private

@@ -6,11 +6,9 @@ require 'factory/post_factory'
 require 'factory/comment_factory'
 
 RSpec.describe Comment, type: :model do
-  let(:user) { create :user }
-  let(:post) { create :post }
   let!(:comment) { create :comment }
 
-  describe 'assocaitions' do
+  describe 'associations' do
     it { should belong_to(:user) }
     it { should belong_to(:post) }
     it { should have_many(:likes).dependent(:destroy) }
