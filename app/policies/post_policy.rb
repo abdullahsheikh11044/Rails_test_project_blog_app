@@ -17,12 +17,32 @@ class PostPolicy < ApplicationPolicy
   end
   alias show? index?
   alias create? new?
-  alias update? index?
-  alias edit? index?
-  alias destroy? index?
+  def update?
+    if @user.moderator?
+      true
+    else
+      @user.user? && (@user == @post.user)
+    end
+  end
+
+  def edit?
+    if @user.moderator?
+      true
+    else
+      @user.user? && (@user == @post.user)
+    end
+  end
+
+  def destroy?
+    if @user.moderator?
+      true
+    else
+      @user.user? && (@user == @post.user)
+    end
+  end
 
   def user_or_moderator?
-    @user.user? || @user.moderator?
+    @user.user? || @user.moderator? || @user.admin?
   end
 
   def user?
