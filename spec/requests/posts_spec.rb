@@ -3,76 +3,74 @@
 require 'rails_helper'
 
 RSpec.describe 'Posts', type: :request do
-  let(:ali) { FactoryBot.create(:user) }
-  let(:ali_post) { FactoryBot.create(:post, user_id: ali.id) }
-
   describe '#new ' do
-    context 'when user is signed in' do
+    context 'when logged in' do
       before do
         sign_in(user)
       end
 
-      describe '.user' do
+      context '.user' do
         let(:user) { create(:user, :user) }
 
-        it 'render created post' do
+        it 'render new' do
           get new_post_path
+          
           expect(response).to have_http_status(:ok)
           expect(response).to render_template('new')
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
 
-        it 'render created post' do
+        it 'render new' do
           get new_post_path
-          expect(response).to have_http_status(:found)
+          expect(response).to  have_http_status(302)
           expect(flash[:alert]).to eq('not allowed to new? this Post')
         end
       end
 
-      describe '.admin' do
+      context '.admin' do
         let(:user) { create(:user, :admin) }
 
-        it 'render created post' do
+        it 'returns error' do
           get new_post_path
-          expect(response).to have_http_status(:found)
+          expect(response).to have_http_status(302)
           expect(flash[:alert]).to eq('not allowed to new? this Post')
         end
       end
     end
 
-    context 'when user is signed out' do
-      before do
-        sign_out(user)
-      end
+    context 'when not logged in' do
 
-      describe '.user' do
+      context '.user' do
         let(:user) { create(:user, :user) }
 
-        it 'render created post' do
+        it 'redirect to login page' do
           get new_post_path
+
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
 
-        it 'render created post' do
+        it 'redirect to login page' do
           get new_post_path
+          
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
         end
       end
 
-      describe '.admin' do
+      context '.admin' do
         let(:user) { create(:user, :admin) }
 
-        it 'render created post' do
+        it 'redirect to login page' do
           get new_post_path
+
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
         end
@@ -81,69 +79,74 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe '#show' do
-    context 'when user is signed in' do
+    context 'when logged in' do
       before do
         sign_in(user)
       end
-
-      describe '.user' do
+      let(:user) { create(:user, :user) }
+      let(:post) { create(:post, user_id: user.id)}
+      context '.user' do
         let(:user) { create(:user, :user) }
-
         it 'render show post' do
-          get post_path(ali_post)
+          get post_path(post)
+
           expect(response).to have_http_status(:ok)
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
 
         it 'render show post' do
-          get post_path(ali_post)
+          get post_path(post)
+          
           expect(response).to have_http_status(:ok)
         end
       end
 
-      describe '.admin' do
+      context '.admin' do
         let(:user) { create(:user, :admin) }
 
         it 'render show post' do
-          get post_path(ali_post)
+          get post_path(post)
+          
           expect(response).to have_http_status(:ok)
         end
       end
     end
 
-    context 'when user is signed out' do
-      before do
-        sign_out(user)
-      end
+    context 'when not logged in' do
+      let(:user) { create(:user, :user) }
+      let(:post) { create(:post, user_id: user.id)}
 
-      describe '.user' do
+      context '.user' do
         let(:user) { create(:user, :user) }
 
-        it 'render show post' do
-          get post_path(ali_post)
+        it 'redirect to login page' do
+          get post_path(post)
+          
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
 
-        it 'render show post' do
-          get post_path(ali_post)
+        it 'redirect to login page' do
+          get post_path(post)
+          
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
         end
       end
 
-      describe '.admin' do
+      context '.admin' do
         let(:user) { create(:user, :admin) }
 
-        it 'render show post' do
-          get post_path(ali_post)
+        it 'redirect to login page' do
+          get post_path(post)
+          
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
         end
@@ -152,66 +155,80 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe '#edit' do
-    context 'when user is signed in' do
+    context 'when logged in' do
       before do
         sign_in(user)
       end
-
-      describe '.user' do
+      let(:user1) { create(:user, :user) }
+      let(:post1) { create(:post, user_id: user1.id) }
+      context '.user' do
         let(:user) { create(:user, :user) }
         let(:post) { create(:post, user_id: user.id) }
 
-        it 'edit his post' do
-          get edit_post_path(post)
-          expect(response).to have_http_status(:ok)
+        context "when user is owner" do
+          it 'render edit post' do
+            get edit_post_path(post)
+          
+            expect(response).to have_http_status(:ok)
+          end
         end
 
-        it 'does not edit others post' do
-          get edit_post_path(ali_post)
-          expect(response).to have_http_status(:found)
+        context "when user is not owner" do
+          it 'returns error' do
+            get edit_post_path(post1)
+          
+            expect(response).to have_http_status(302)
+          end
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
 
-        it 'edits post' do
-          get edit_post_path(ali_post)
+        it 'render edit post' do
+          get edit_post_path(post1)
+
           expect(response).to have_http_status(:ok)
         end
       end
     end
 
-    context 'when user is signed out' do
-      before do
-        sign_out(user)
-      end
+    context 'when not logged in' do
 
-      describe '.user' do
+      let(:user1) { create(:user, :user) }
+      let(:post1) { create(:post, user_id: user1.id) }
+      
+      context '.user' do
+      
         let(:user) { create(:user, :user) }
-
-        it 'does not edit' do
-          get edit_post_path(ali_post)
-          expect(response).to redirect_to new_user_session_path
+      
+        it 'redirect to login page' do
+      
+          get edit_post_path(post1)
+          
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
+          expect(response).to redirect_to new_user_session_path
+      
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
 
-        it 'does not edit' do
-          get edit_post_path(ali_post)
+        it 'redirect to login page' do
+          get edit_post_path(post1)
+          
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
         end
       end
 
-      describe '.admin' do
+      context '.admin' do
         let(:user) { create(:user, :admin) }
 
-        it 'does not edit' do
-          get edit_post_path(ali_post)
+        it 'redirect to login page' do
+          get edit_post_path(post1)
+          
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
         end
@@ -220,146 +237,159 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe '#index' do
-    context 'when signed in' do
+    context 'when logged in' do
       before do
         sign_in(user)
       end
 
-      describe '.user' do
+      context '.user' do
         let(:user) { create(:user, :user) }
 
-        it 'displays published posts' do
+        it 'render posts' do
           get posts_path
+          
           expect(response).to have_http_status(:ok)
           expect(response).to render_template('index')
-        end
-
-        it 'displays unpublished posts' do
-          get users_path
-          expect(response).to have_http_status(:ok)
-          expect(response).to render_template('index')
+        
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
 
-        it 'displays published posts' do
+        it 'render posts' do
           get posts_path
+          
           expect(response).to have_http_status(:ok)
           expect(response).to render_template('index')
+        
         end
+      end
 
-        it 'displays unpublished posts' do
-          get users_path
-          expect(response).to have_http_status(:ok)
-          expect(response).to render_template('index')
+      context '.admin' do
+        it 'returns error ' do
+          get posts_path
+
+          expect(flash[:alert]).to eq('not allowed to index? this Post')
         end
       end
     end
 
-    context 'when signed out' do
-      before do
-        sign_out(user)
-      end
+    context 'when not logged in' do
 
-      describe '.user' do
+      context '.user' do
         let(:user) { create(:user, :user) }
 
-        it 'redirects to sign in page' do
+        it 'redirects to login page' do
           get posts_path
+          
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
+        
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
 
-        it 'redirects to sign in page' do
+        it 'redirects to login page' do
           get posts_path
+          
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
+        
         end
       end
     end
   end
 
   describe '#create ' do
+    let(:user) { create(:user, :user)}
     let(:payload) do
       {
         post: {
           title: Faker::Lorem.word,
           body: Faker::Lorem.word,
-          user_id: ali.id
+          user_id: user.id
         }
       }
     end
 
-    context 'when signed in' do
+    context 'when logged in' do
       before do
         sign_in(user)
       end
 
-      describe '.user' do
+      context '.user' do
         let(:user) { create(:user, :user) }
 
-        it 'creates posts ' do
-          post posts_path(payload)
-          expect(flash[:notice]).to eq('Post is successfully  created')
+        context 'when params are present' do
+          it 'redirect to created post' do
+            post posts_path(payload)
+            
+            expect(flash[:notice]).to eq('Post is successfully  created')
+          end
         end
 
-        it 'does not creates posts when title is blank' do
-          payload[:post][:title] = nil
-          post posts_path(payload)
-          expect(flash[:notice]).to eq("Title can't be blank")
-        end
+        context 'when params are missing' do
+          context 'when title is missing or nil' do
 
-        it 'does not creates posts when body is blank' do
-          payload[:post][:body] = nil
-          post posts_path(payload)
-          expect(flash[:notice]).to eq("Body can't be blank")
+            it 'returns error' do
+              payload[:post][:title] = nil
+              post posts_path(payload)
+            
+              expect(flash[:notice]).to eq("Title can't be blank")
+            end
+          end
+          context 'when body is blank or nil ' do
+            it 'returns error' do
+              payload[:post][:body] = nil
+              post posts_path(payload)
+            
+              expect(flash[:notice]).to eq("Body can't be blank")
+            end
+          end
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
 
-        it 'does not create post ' do
+        it 'returns error' do
           post posts_path(payload)
+          
           expect(flash[:alert]).to eq('not allowed to create? this Post')
         end
       end
 
-      describe '.admin' do
+      context '.admin' do
         let(:user) { create(:user, :admin) }
 
-        it 'does not create post ' do
+        it 'returns error' do
           post posts_path(payload)
           expect(flash[:alert]).to eq('not allowed to create? this Post')
         end
       end
     end
 
-    context 'when signed out' do
-      before do
-        sign_out(user)
-      end
+    context 'when not logged in' do
 
-      describe '.user' do
+      context '.user' do
         let(:user) { create(:user, :user) }
 
-        it 'does not create post' do
+        it 'redirect to login page' do
           post posts_path(payload)
+          
           expect(response).to redirect_to new_user_session_path
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
 
-        it 'does not create post' do
+        it 'redirect to login page' do
           post posts_path(payload)
+          
           expect(response).to redirect_to new_user_session_path
         end
       end
@@ -367,91 +397,77 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe '#destroy ' do
-    context 'When signed in' do
+    context 'when logged in' do
       before do
         sign_in(user)
       end
-
-      describe '.user' do
+      let(:user1) { create(:user, :user) }
+      let(:post1) { create(:post, user_id: user1.id) }
+      context '.user' do
         let(:user) { create(:user, :user) }
         let(:post) { create(:post, user_id: user.id) }
-
-        it 'delete post if he is creator of post' do
-          delete post_path(post)
-          expect(flash[:notice]).to eq('Post is successfully  deleted')
-          expect(response).to redirect_to posts_path
+        
+        context "is owner of post" do
+        
+          it 'should delete post' do
+            delete post_path(post)
+            
+            expect(flash[:notice]).to eq('Post is successfully  deleted')
+            expect(response).to redirect_to posts_path
+          end
         end
-
-        it 'does not delete post if he is not creator of post' do
-          delete post_path(ali_post)
-          expect(flash[:alert]).to eq('not allowed to destroy? this Post')
+        
+        context "is not owner of post" do
+          
+          it 'returns error' do
+            delete post_path(post1)
+            
+            expect(flash[:alert]).to eq('not allowed to destroy? this Post')
+          end
+        
         end
-
-        it 'does not delete post if post not found' do
-          delete post_path(0)
-          expect(flash[:alert]).to eq('This post does not exists')
+        
+        context "post not found" do
+          it 'returns error' do
+            delete post_path(0)
+            
+            expect(flash[:alert]).to eq('This post does not exists')
+          end
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
 
-        it 'delete post if he is creator of post' do
-          delete post_path(ali_post)
+        it 'should delete post' do 
+          delete post_path(post1)
+          
           expect(flash[:notice]).to eq('Post is successfully  deleted')
           expect(response).to redirect_to posts_path
         end
       end
     end
 
-    context 'Checking destroy failure case' do
-      let(:post3) { build_stubbed(:post) }
+    context 'when not logged in' do
 
-      before do
-        sign_in(user)
-        allow(controller).to receive(:find).and_return(post3)
-        allow(controller).to receive(:destroy).and_return(false)
-      end
-
-      describe '.user' do
-        let(:user) { create(:user, :user) }
-        let(:user1) { create(:user, :user) }
-        let(:post) { create(:post, :publish, user_id: user1.id) }
-
-        it 'does not delete post if it dont exist' do
-          delete post_path(post3)
-          expect(flash[:alert]).to eq('This post does not exists')
-        end
-
-        it 'does not delete post when user is creator of post and post is unpublished' do
-          delete post_path(post.id)
-          expect(response).to redirect_to(root_path)
-          expect(flash[:alert]).to eq('not allowed to destroy? this Post')
-        end
-      end
-    end
-
-    context 'when signed out' do
-      before do
-        sign_out(user)
-      end
-
-      describe '.user' do
+      context '.user' do
         let(:user) { create(:user, :user) }
         let(:post) { create(:post, user_id: user.id) }
 
-        it 'does not delete post ' do
+        it 'redirect to login page' do
           delete post_path(post.id)
+          
           expect(response).to redirect_to(new_user_session_path)
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
         let(:post) { create(:post, :publish, user_id: user.id) }
 
-        it 'deletes post when post is published' do
+        it 'redirect to login page' do
           delete post_path(post.id)
+          
           expect(response).to redirect_to(new_user_session_path)
         end
       end
@@ -470,64 +486,82 @@ RSpec.describe 'Posts', type: :request do
       }
     end
 
-    context 'when signed in' do
+    context 'when logged in' do
       before do
         sign_in(user)
       end
 
-      describe '.user' do
+      context '.user' do
         let(:user) { create(:user, :user) }
         let(:post) { create(:post, user_id: user.id) }
         let(:user1) { create(:user, :user) }
 
-        it 'updates post' do
+        it 'redirect to updated post' do
           get post_path(post.id)
           patch post_path(payload)
+          
           expect(response).to redirect_to post_path(post.id)
           expect(flash[:notice]).to eq('Post is successfully  updated')
         end
-
-        it ' should not update post when body is null' do
-          payload[:post][:body] = nil
-          get post_path(post.id)
-          patch post_path(payload)
-          expect(flash[:notice]).to eq("Body can't be blank")
+        context "when body is null" do
+          it 'returns error' do
+            payload[:post][:body] = nil
+            get post_path(post.id)
+            patch post_path(payload)
+            
+            expect(flash[:notice]).to eq("Body can't be blank")
+          end
+        end
+        context "when body is null" do
+          it 'returns error' do
+            payload[:post][:title] = nil
+            get post_path(post.id)
+            patch post_path(payload)
+            
+            expect(flash[:notice]).to eq("Title can't be blank")
+          end
         end
       end
 
-      describe '.moderator' do
+      context '.moderator' do
         let(:user) { create(:user, :moderator) }
         let(:post) { create(:post, :unpublish, user_id: user.id) }
         let(:post1) { create(:post, :publish, user_id: user.id) }
 
-        it 'updates post when post is unpublished' do
-          get post_path(post.id)
-          patch post_path(payload)
-          expect(response).to redirect_to post_path(post.id)
-          expect(flash[:notice]).to eq('Post is successfully  updated')
-        end
+        context "when post is unpublished" do
 
-        it 'updates post when post is published' do
-          get post_path(post1.id)
-          patch post_path(payload)
-          expect(response).to redirect_to post_path(post1.id)
-          expect(flash[:notice]).to eq('Post is successfully  updated')
+          it 'redirect to updated post' do
+            get post_path(post.id)
+            patch post_path(payload)
+            
+            expect(response).to redirect_to post_path(post.id)
+            expect(flash[:notice]).to eq('Post is successfully  updated')
+          end
+
+        end
+        context "when post is published" do
+
+          it 'redirect to updated post' do
+            get post_path(post1.id)
+            patch post_path(payload)
+            
+            expect(response).to redirect_to post_path(post1.id)
+            expect(flash[:notice]).to eq('Post is successfully  updated')
+          end
         end
       end
     end
 
-    context 'when signed in' do
-      before do
-        sign_out(user)
-      end
+    context 'when not logged in' do
 
-      describe '.user' do
+      context '.user' do
         let(:user) { create(:user, :user) }
         let(:post) { create(:post, user_id: user.id) }
 
-        it 'does not update post ' do
+        it 'redirect to login page' do
           get post_path(post.id)
           patch post_path(payload)
+          
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
         end

@@ -2,6 +2,7 @@
 
 class PostsController < ApplicationController
   before_action :find_post, only: %i[show update edit destroy]
+  
   def index
     @pagy, @post = pagy(Post.all.order('created_at DESC'))
   end
@@ -42,7 +43,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    authorize @post, policy_class: PostPolicy
+    authorize @post
 
     if @post.destroy
       redirect_to posts_path, flash: { notice: 'Post is successfully  deleted' }
