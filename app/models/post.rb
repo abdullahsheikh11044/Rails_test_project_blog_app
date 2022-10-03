@@ -7,6 +7,15 @@ class Post < ApplicationRecord
   has_many :reports, as: :reportable, dependent: :destroy
   has_one_attached :image, dependent: :destroy
   has_rich_text :body
+  before_save :update_old_body
+
+private
+
+def update_old_body
+  self.content = body&.body&.to_s unless content
+rescue ActionView::Template::Error
+    build_rich_text_body
+end
 
   belongs_to :user
 

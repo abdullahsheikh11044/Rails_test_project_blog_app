@@ -12,4 +12,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :likes, only: %i[create destroy]
   root to: 'users#index'
+
+  namespace :api do
+    namespace :v1 do
+      resources :posts
+    end
+  end
 end

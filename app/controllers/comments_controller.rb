@@ -23,5 +23,8 @@ class CommentsController < ApplicationController
 
   def find_post
     @post = Post.find_by(id: params[:post_id])
+    if @post.nil?
+      flash[:alert] = "Post doesn't exist"
+    end
   end
 end
