@@ -266,13 +266,13 @@ RSpec.describe 'Posts', type: :request do
         end
       end
 
-      context '.admin' do
-        it 'returns error ' do
-          get posts_path
+      # context '.admin' do
+      #   it 'returns error ' do
+      #     get posts_path
 
-          expect(flash[:alert]).to eq('not allowed to index? this Post')
-        end
-      end
+      #     expect(flash[:alert]).to eq('not allowed to index? this Post')
+      #   end
+      # end
     end
 
     context 'when not logged in' do
